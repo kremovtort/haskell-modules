@@ -9,6 +9,9 @@ export type Commands = {
   /** Search the workspace for Haskell module files. */
   populate: () => Promise<boolean>
 
+  /** Fuzzy search for a module and open it. */
+  searchModules: () => Promise<boolean>
+
   /** Add a submodule to the given module. */
   addSubmodule: (m: Module) => Promise<boolean>
 
@@ -157,6 +160,35 @@ export namespace Commands {
 
       tell('Done')
       return true
+    }
+
+    async function searchModules(): Promise<boolean> {
+      const tell = tells('searchModules')
+      tell('Listing all modules..')
+
+      const modules = index.getAll()
+      const items = modules.map(m => {
+        let label = m.id
+        if (m.name[0] === 'Main' && m.uri) {
+          label = `Main (${vscode.workspace.asRelativePath(m.uri)})`
+        }
+        return {
+          label,
+          description: m.uri ? vscode.workspace.asRelativePath(m.uri) : undefined,
+          module: m
+        }
+      })
+
+      const selected = await vscode.window.showQuickPick(items, {
+        placeHolder: 'Search for a module to open...'
+      })
+
+      if (selected && selected.module.uri) {
+        tell('Selected module', selected.module)
+        await vscode.window.showTextDocument(selected.module.uri)
+      }
+
+      return populate()
     }
 
     async function addSubmodule(m: Module): Promise<boolean> {
@@ -321,6 +353,7 @@ export namespace Commands {
 
     return {
       populate,
+      searchModules,
       addSubmodule,
       createModuleFile,
       renameModule,

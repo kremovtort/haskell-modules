@@ -8,6 +8,7 @@ export type Index = {
   getByEditor(uri: vscode.TextEditor): Module | undefined
   getChildren(parent?: Module): Array<Module>
   getParent(child: Module): Module | undefined
+  getAll(): Array<Module>
   getSourceDirs(): Array<string>
   insert(module: Module): void
 }
@@ -58,6 +59,10 @@ export namespace Index {
         : undefined
     }
 
+    function getAll(): Array<Module> {
+      return [...modules.values()].filter(m => m.uri !== undefined)
+    }
+
     function getSourceDirs(): Array<string> {
       return [...sourcedirs].sort()
     }
@@ -80,6 +85,6 @@ export namespace Index {
       }
     }
 
-    return { get, getByFilePath, getByEditor, getChildren, getParent, getSourceDirs, insert }
+    return { get, getByFilePath, getByEditor, getChildren, getParent, getAll, getSourceDirs, insert }
   }
 }

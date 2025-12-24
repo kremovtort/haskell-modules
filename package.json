@@ -13,6 +13,11 @@
         "title": "Haskell Modules: Refresh"
       },
       {
+        "command": "haskell-modules.search",
+        "icon": "$(search)",
+        "title": "Haskell Modules: Search module..."
+      },
+      {
         "command": "haskell-modules.add",
         "icon": "$(add)",
         "title": "Haskell Modules: Add submodule..."
@@ -91,6 +96,11 @@
         }
       ],
       "view/title": [
+        {
+          "command": "haskell-modules.search",
+          "group": "navigation",
+          "when": "view == haskell-modules"
+        },
         {
           "command": "haskell-modules.refresh",
           "group": "navigation",

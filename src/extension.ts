@@ -79,6 +79,7 @@ async function initProvider(): Promise<vscode.Disposable> {
 
   disposables.push(
     vscode.commands.registerCommand('haskell-modules.refresh', commands.populate),
+    vscode.commands.registerCommand('haskell-modules.search', commands.searchModules),
     vscode.commands.registerCommand('haskell-modules.add', commands.addSubmodule),
     vscode.commands.registerCommand('haskell-modules.create', commands.createModuleFile),
     vscode.commands.registerCommand('haskell-modules.rename', commands.renameModule),
