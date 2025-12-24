@@ -30,6 +30,12 @@ can find. Extension ID `haskell-modules`. Published by `friedbrice`.
 
   ![Jump to modules](doc/5-jump-to-module.gif)
 
+* __Fuzzy search modules__ Quickly find and open any module in your workspace
+  using fuzzy search. Access it via the search icon in the module tree view
+  or the command palette (`Haskell Modules: Search module...`).
+
+  ![Fuzzy search for modules](doc/7-fuzzy-search.png)
+
 * __Hydrate/Dehydrate module__ Inserts qualified imports of all imported
   modules (hydrate). This greatly improves GHC feedback and suggestions.
   When done working on a module, qualified symbols introduced in this way can
